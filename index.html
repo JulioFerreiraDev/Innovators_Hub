@@ -144,40 +144,41 @@
         });
 
         form.addEventListener('submit', (e) => {
-            e.preventDefault();
-            
-            const formData = new FormData(form);
-            const data = {
-                q1: formData.get('q1'),
-                q2: formData.get('q2'),
-                q3: formData.get('q3'),
-                q4: formData.get('q4'),
-                q5: formData.get('q5'),
-                q6: formData.get('q6'),
-                q7: formData.get('q7'),
-                q8: formData.get('q8'),
-                q9: formData.get('q9'),
-                q10: formData.get('q10'),
-            };
+    e.preventDefault();
+    
+    const data = {
+        q1: document.getElementById('q1').value,
+        q2: document.getElementById('q2').value,
+        q3: document.getElementById('q3').value,
+        q4: document.getElementById('q4').value,
+        q5: document.getElementById('q5').value,
+        q6: document.getElementById('q6').value,
+        q7: document.getElementById('q7').value,
+        q8: document.getElementById('q8').value,
+        q9: document.getElementById('q9').value,
+        q10: document.getElementById('q10').value,
+    };
 
-            // Substitua com seu endpoint do Google Apps Script
-            const url = 'https://script.google.com/macros/s/AKfycbxhTYKGw-p6R5jtM93H1cC35_IsB3t8guD_h6uYAnONV78iYgvCiFbM8mUfTHpnNOL4NQ/exec'; 
+    // Substitua com seu endpoint do Google Apps Script
+    const url = 'https://script.google.com/macros/s/AKfycbxhTYKGw-p6R5jtM93H1cC35_IsB3t8guD_h6uYAnONV78iYgvCiFbM8mUfTHpnNOL4NQ/exec'; 
 
-            fetch(url, {
-                method: 'POST',
-                mode: 'no-cors',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                },
-                body: new URLSearchParams(data),
-            })
-            .then(() => {
-                alert('Respostas enviadas com sucesso!');
-            })
-            .catch(() => {
-                alert('Ocorreu um erro ao enviar as respostas.');
-            });
-        });
+    fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: new URLSearchParams(data),
+    })
+    .then((response) => response.text()) // Para capturar resposta
+    .then((result) => {
+        alert('Respostas enviadas com sucesso!');
+        console.log(result); // Verifique a resposta no console
+    })
+    .catch((error) => {
+        console.error('Erro:', error);
+        alert('Ocorreu um erro ao enviar as respostas.');
+    });
+});
     </script>
 </body>
 </html>
